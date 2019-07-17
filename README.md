@@ -31,7 +31,7 @@ fred.weight = 999.2
 fred.homePlanet = "Mars"
 ```
 
-Fix the class definition for Giant in the space below so that it does work:
+Fix the class definition for `Giant` in the space below so that it **does** work:
 
 
 ## Question 2
@@ -55,7 +55,7 @@ bilbo.height = 1.42
 bilbo.homePlanet = "Saturn"
 ```
 
-Change the declaration of bilbo so that the above three lines of code **do** work.
+Change the declaration of `bilbo` so that the above three lines of code **do** work:
 
 
 ## Question 3
@@ -107,7 +107,7 @@ Does this code work? Why or why not?
 
 Fix the `BankAccount` struct so it does work.
 
-Given the code below (which incorporates any fixes you made):
+Given the code below (which should incorporate any fixes you made):
 
 ```swift
 var joeAccount = BankAccount(owner: "Joe", balance: 100.0)
@@ -120,7 +120,7 @@ What will the value of `joeAccount.balance` be after the above code runs? What a
 
 ## Question 6
 
-a. Write a struct called `Person` that has 3 properties of type `String`: a first name, a last name and a middle name. Have the middle name be optional. Create 2 instances of a Person, one with a middle name and one without. Print one of their first names.
+a. Write a struct called `Person` that has 3 properties of type `String`: a first name, a last name and a middle name. Have the middle name be optional. Create 2 instances of a `Person`, one with a middle name and one without. Print one of their first names.
 
 
 b. Write a method in `Person` called `fullName` that will return a formatted string of an instance's full name. Call this method on both the instances you created in part a.
@@ -128,7 +128,7 @@ b. Write a method in `Person` called `fullName` that will return a formatted str
 
 ## Question 7
 
-a. Create a class called `Book` that has properties for title, author and rating, of type `String`, `String`, and `Double` respectively. Don't forget the initializer. Create some instances of `Book`.
+a. Create a class called `Book` that has properties `title`, `author` and `rating`, of type `String`, `String`, and `Double` respectively. Don't forget the initializer. Create some instances of `Book`.
 
 
 b. Add a method to `Book` called `isGood` that returns `true` if its rating is greater than or equal to 7
@@ -195,7 +195,6 @@ print(dog5.toString())
 //Mood: feeling pawesome
 ```
 
-
 f. Add a type property called `count` that keeps track of how many dogs have been created so far.
 
 //Ex: There have been five dogs created so far
@@ -240,13 +239,14 @@ let colorDictArray: [[String: Double]] = [["red": 1.0, "green": 0.0, "blue": 0.0
  ["red": 0.5, "green": 0.1, "blue": 0.9],]
 ```
 
+
 ## Question 11
 
 a. Create a class called `Movie` that has properties for `name` (`String`), `year` (`Int`), `genre` (`String`), `cast` (`[String]`), and `description` (`String`). Create an instance of your `Movie` class
 
 b. Create an instance method inside `Movie` called `blurb` that returns a formatted string describing the movie.
 
-Ex: Minions came out in 2015. It was an animation staring Sandra Bullock, Jon Hamm, and Michael Keaton.
+Ex: "Borat came out in 2006. It was an odd film starring Sacha Baron Cohen as a man named Borat who was visiting America from Kazakhstan."
 
 
 ## Question 12
