@@ -11,7 +11,7 @@ Given this class that represents a giant:
 class Giant {
  var name: String = "Fred"
  var weight: Double = 340.0
- let homePlanet: String = "Earth
+ let homePlanet: String = "Earth"
 }
 
 let fred = Giant()
