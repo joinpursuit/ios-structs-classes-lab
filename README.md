@@ -193,8 +193,8 @@ print(dog4.toString())
 
 e. Add a type property called `count` that keeps track of how many dogs have been created so far.
 
-//Ex: There have been five dogs created so far
-`Dog.count //returns 5`
+//Ex: There have been four dogs created so far
+`Dog.count //returns 4`
 
 
 ## Question 9
@@ -205,7 +205,7 @@ C = (F - 32) / 1.8
 F = 1.8 * C + 32
 K = C + 273
 
-a. Make a struct called `FreezingPoint` that has three properties: `celsius`, `fahrenheit`, and `kelvin`. Give them all default values equal to the freezing point of water.
+a. Make a struct called `FreezingPoint` that has three static properties: `celsius`, `fahrenheit`, and `kelvin`. Give them all values equal to the freezing point of water.
 
 
 b. Make a struct called `Celsius` that has one property: `celsius`, and two methods `getFahrenheitTemp`, and `getKelvinTemp`. Make the values of `fahrenheit` and `kelvin` correct values, converted from the `celsius` property.
