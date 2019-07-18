@@ -9,18 +9,12 @@ Given this class that represents a giant:
 
 ```swift
 class Giant {
- var name: String
- var weight: Double
- let homePlanet: String
-
- init(name: String, weight: Double, homePlanet: String) {
- self.name = name
- self.weight = weight
- self.homePlanet = homePlanet
- }
+ var name: String = "Fred"
+ var weight: Double = 340.0
+ let homePlanet: String = "Earth
 }
 
-let fred = Giant(name: "Fred", weight: 340.0, homePlanet: "Earth")
+let fred = Giant()
 ```
 
 Will these three lines of code run? If not, why not?
@@ -63,7 +57,8 @@ Change the declaration of `bilbo` so that the above three lines of code **do** w
 Consider this bit of code that uses the `Giant` class:
 
 ```swift
-let edgar = Giant(name: "Edgar", weight: 520.0, homePlanet: "Earth")
+let edgar = Giant()
+edgar.name = "edgar"
 let jason = edgar
 jason.name = "Jason"
 ```
@@ -128,7 +123,7 @@ b. Write a method in `Person` called `fullName` that will return a formatted str
 
 ## Question 7
 
-a. Create a class called `Book` that has properties `title`, `author` and `rating`, of type `String`, `String`, and `Double` respectively. Don't forget the initializer. Create some instances of `Book`.
+a. Create a struct called `Book` that has properties `title`, `author` and `rating`, of type `String`, `String`, and `Double` respectively. Create some instances of `Book`.
 
 
 b. Add a method to `Book` called `isGood` that returns `true` if its rating is greater than or equal to 7
@@ -154,48 +149,49 @@ dog1.mood //returns "calm"
 dog1.hungry //returns false
 ```
 
-b. Add an `init` method so that you can initialize new dogs with values for name, breed, mood, and hungry. It should still have the same default values for these properties
+b. Add an instance method called `playFetch()`. It should set the dog's `hungry` property to `true`, set its mood property to `playful`, and print "Ruff!"
 
 ```swift
-var dog2 = Dog(name: "Oreo", breed: "English Setter", mood: "excited", hungry: true)
-dog2.name //returns "Oreo"
-dog2.breed //returns "English Setter"
-dog2.mood //returns 'excited'
+var dog2 = Dog()
+dog2.name = "Rhett"
+dog2.breed = "English Setter"
+dog2.mood = "excited"
+dog2.hungry = false
+
+dog2.playFetch() //prints "Ruff!"
 dog2.hungry //returns true
+dog2.mood //returns "playful"
 ```
 
-c. Add an instance method called `playFetch()`. It should set the dog's `hungry` property to `true`, set its mood property to `playful`, and print "Ruff!"
+c. Add an instance method called `feed()`. If the dog is hungry, it should set `hungry` to `false` and print "Woof!" If the dog is not hungry, it should print "The dog doesn't look hungry"
 
 ```swift
-var dog3 = Dog(name: "Rhett", breed: "English Setter", mood: "excited", hungry: false)
+var dog3 = Dog()
+dog3.name = "Partner"
+dog3.breed = "Golden Retriever"
+dog3.mood = "thoughtful"
+dog3.hungry = true
+
+dog3.feed() //prints "Woof!"
 dog3.hungry //returns false
-dog3.mood //returns "excited"
-dog3.playFetch() //prints "Ruff!"
-dog3.hungry //returns true
-dog3.mood //returns "playful"
 ```
 
-d. Add an instance method called `feed()`. If the dog is hungry, it should set `hungry` to `false` and print "Woof!" If the dog is not hungry, it should print "The dog doesn't look hungry"
+d. Add an instance method called `toString` that returns a `String` type description of the dog:
 
 ```swift
-var dog4 = Dog(name: "Partner", breed: "Golden Retriever", mood: "thoughtful", hungry: true)
-dog4.hungry //returns true
-dog4.feed() //prints "Woof!"
-dog4.hungry //returns false
-```
-
-e. Add an instance method called `toString` that returns a `String` type description of the dog:
-
-```swift
-var dog5 = Dog(name: "Rascal", breed: "Golden Retriever", mood: "feeling pawesome", hungry: true)
-print(dog5.toString())
+var dog4 = Dog()
+dog4.name = "Rascal"
+dog4.breed = "Golden Retriever"
+dog4.mood = "feeling pawesome"
+dog4.hungry = true
+print(dog4.toString())
 //prints:
 //Name: Rascal
 //Breed: Golden Retriever
 //Mood: feeling pawesome
 ```
 
-f. Add a type property called `count` that keeps track of how many dogs have been created so far.
+e. Add a type property called `count` that keeps track of how many dogs have been created so far.
 
 //Ex: There have been five dogs created so far
 `Dog.count //returns 5`
@@ -212,13 +208,13 @@ K = C + 273
 a. Make a struct called `FreezingPoint` that has three properties: `celsius`, `fahrenheit`, and `kelvin`. Give them all default values equal to the freezing point of water.
 
 
-b. Make a struct called `Celsius` that has three properties: `celsius`, `fahrenheit`, and `kelvin`. Give `celsius` a default value of `0.0`, and make the values of `fahrenheit` and `kelvin` correct values, converted from the `celsius` property.
+b. Make a struct called `Celsius` that has one property: `celsius`, and two methods `getFahrenheitTemp`, and `getKelvinTemp`. Make the values of `fahrenheit` and `kelvin` correct values, converted from the `celsius` property.
 
 ```swift
 var tenDegreesCelsius = Celsius(celsius: 10.0)
 tenDegreesCelsius.celsius //returns 10.0
-tenDegreesCelsius.kelvin //returns 283.0
-tenDegreesCelsius.fahrenheit //returns 50.0
+tenDegreesCelsius.getKelvinTemp() //returns 283.0
+tenDegreesCelsius.getFahrenheitTemp() //returns 50.0
 ```
 
 c. Give the `Celsius` struct a method called `isBelowFreezing` that returns a `Bool` (true if the temperature is below freezing).
@@ -242,7 +238,7 @@ let colorDictArray: [[String: Double]] = [["red": 1.0, "green": 0.0, "blue": 0.0
 
 ## Question 11
 
-a. Create a class called `Movie` that has properties for `name` (`String`), `year` (`Int`), `genre` (`String`), `cast` (`[String]`), and `description` (`String`). Create an instance of your `Movie` class
+a. Create a struct called `Movie` that has properties for `name` (`String`), `year` (`Int`), `genre` (`String`), `cast` (`[String]`), and `description` (`String`). Create an instance of your `Movie` class
 
 b. Create an instance method inside `Movie` called `blurb` that returns a formatted string describing the movie.
 
@@ -251,7 +247,7 @@ Ex: "Borat came out in 2006. It was an odd film starring Sacha Baron Cohen as a 
 
 ## Question 12
 
-Create a function outside of your `Movie` class called `makeMovie` that takes in a dictionary of type `[String: Any]`, like `dieHardDict` below, and returns an `optional Movie`. Use `dieHardDict` to create an instance of a `Movie`.
+Create a function outside of your `Movie` struct called `makeMovie` that takes in a dictionary of type `[String: Any]`, like `dieHardDict` below, and returns an `optional Movie`. Use `dieHardDict` to create an instance of a `Movie`.
 
 ```swift
 let dieHardDict: [String: Any] = ["name": "Die Hard",
