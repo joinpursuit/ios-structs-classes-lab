@@ -24,9 +24,20 @@ fred.name = "Brick"
 fred.weight = 999.2
 fred.homePlanet = "Mars"
 ```
+answer:
+
+the code will not run because class 'Giant' has no initializers.
 
 Fix the class definition for `Giant` in the space below so that it **does** work:
 
+answer:
+```swift
+class Giant {
+    var name = String()
+    var weight = Double()
+    var homePlanet: String = "Earth"
+}
+```
 
 ## Question 2
 
@@ -48,9 +59,13 @@ bilbo.name = "Jake"
 bilbo.height = 1.42
 bilbo.homePlanet = "Saturn"
 ```
+answer:
+it won't work because bilbo was declared as a constant.
 
 Change the declaration of `bilbo` so that the above three lines of code **do** work:
-
+```swift
+var bilbo = Alien(name: "Bilbo", height: 1.67, homePlanet: "Venus")
+```
 
 ## Question 3
 
@@ -64,6 +79,9 @@ jason.name = "Jason"
 ```
 
 What will the value of `edgar.name` be after those three lines of code are run? What will the value of `jason.name` be? Why?
+
+the value of  `edgar.name` will be Jason.  The value of `jason.name` will also be Jason.   THat is becasue Giant is a class, and classes are known as reference types; Meaning that `jason.name` and `edgar.name` refer to the same instance of the data type Giant().  So when one value changes, so does the other.
+
 
 
 ## Question 4
