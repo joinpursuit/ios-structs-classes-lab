@@ -96,6 +96,7 @@ charlesFromJupiter.homePlanet = "Jupiter"
 
 What will the value of `charles.homePlanet` be after the above code run? What about the value of `charlesFromJupiter.homePlanet`? Why?
 
+The value of `charles.homePlanet` is going to be "Pluto".  The value of `charlesFromJupiter.homePlanet` is going to be "Jupiter".  This is because Alien is a struct.  When a variable or constant is assigned a struct, its instanced as a copy of a struct.  If a new variable were to be assigned the same variable that was instanced a new struct, it would become a copy of that variable, rather than being referenced.  So when the data changes in that variable, it doesnt affect the value of the new one.
 
 ## Question 5
 
@@ -118,6 +119,8 @@ struct BankAccount {
 
 Does this code work? Why or why not?
 
+This code doesn't work because 'self' is immutable.
+
 Fix the `BankAccount` struct so it does work.
 
 Given the code below (which should incorporate any fixes you made):
@@ -130,28 +133,98 @@ joeAccount.withdraw(50.0)
 
 What will the value of `joeAccount.balance` be after the above code runs? What about the value of `joeOtherAccount.balance`? Why?
 
+The value of `joeAccount.balance` will be `50.0`.  THe value of `joeOtherAccount.balance` will be `100.0`.  This is because joeAccount is a variable that takes the struct BankAccount.  As a struct, whenever a new variable is assigned from the var joeAccount; it will be assigned a copy of joeAccount.  So when the value of joeAccount changes after the fact; it does not affect the values of other variables that were assigned before this execution occurred. 
+
 
 ## Question 6
 
 a. Write a struct called `Person` that has 3 properties of type `String`: a first name, a last name and a middle name. Have the middle name be optional. Create 2 instances of a `Person`, one with a middle name and one without. Print one of their first names.
 
+```swift
+struct Person {
+    let firstName: String
+    let middleName: String?
+    let lastName: String
+    func fullName() -> String {
+        "\(firstName) \(middleName ?? "") \(lastName)"
+    }
+}
 
+let ahad = Person(firstName: "Ahad", middleName: nil, lastName: "Islam")
+let eddie = Person(firstName: "Edward", middleName: "O", lastName: "Neil")
+
+print(eddie.firstName)
+print(ahad.firstName)
+```
 b. Write a method in `Person` called `fullName` that will return a formatted string of an instance's full name. Call this method on both the instances you created in part a.
 
+```swift
+print(ahad.fullName())
+print(eddie.fullName())
 
+```
 ## Question 7
 
 a. Create a struct called `Book` that has properties `title`, `author` and `rating`, of type `String`, `String`, and `Double` respectively. Create some instances of `Book`.
 
+```swift
+struct Book {
+    let title: String
+    let author: String
+    let rating: Double
+}
+
+let hundredYearsOfSolitude = Book(title: "One Hundred Years of Solitude", author: "Gabriel Garcia Marquez", rating: 100.0)
+let flowersForAlgernon = Book(title: "Flowers for Algernon", author: "Daniel Keyes", rating: 10.0)
+let warAndPeace = Book(title: "War and Peace", author: "Leo Tolstory", rating: 5.0)
+```
 
 b. Add a method to `Book` called `isGood` that returns `true` if its rating is greater than or equal to 7
+
+```swift
+struct Book {
+    let title: String
+    let author: String
+    let rating: Double
+    func isGood() -> Bool {
+        if self.rating >= 7.0 { return true }
+        else { return false }
+    }
+}
+```
 
 
 ## Question 8
 
 ```swift
 class Dog {
-
+    static var count = 0
+    var name = "dog"
+    var breed = "unknown"
+    var mood = "calm"
+    var hungry = false
+    
+    init() { Dog.count += 1 }
+    func playFetch() {
+        self.hungry = true
+        self.mood = "playful"
+        print("Ruff")
+    }
+    func feed() {
+        if self.hungry {
+            hungry = false
+            print("Woof!")
+        } else {
+            print("The dog doesn't look hungry.")
+        }
+    }
+    func toString() -> String {
+        return """
+        Name: \(self.name)
+        Breed: \(self.breed)
+        Mood: \(self.mood)
+        """
+    }
 }
 ```
 
@@ -237,6 +310,21 @@ tenDegreesCelsius.getFahrenheitTemp() //returns 50.0
 
 c. Give the `Celsius` struct a method called `isBelowFreezing` that returns a `Bool` (true if the temperature is below freezing).
 
+```swift
+struct Celsius {
+    var celsius: Double
+    
+    func getFahrenheitTemp() -> Double {
+        return 1.8 * self.celsius + 32
+    }
+    func getKelvinTemp() -> Double {
+        return self.celsius + 273
+    }
+    func isBelowFreezing(freezingC: FreezingPoint) -> Bool {
+        self.celsius < freezingC.celsius ? true : false
+    }
+}
+```
 
 ## Question 10
 
