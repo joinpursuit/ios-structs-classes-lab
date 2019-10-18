@@ -298,6 +298,13 @@ K = C + 273
 
 a. Make a struct called `FreezingPoint` that has three static properties: `celsius`, `fahrenheit`, and `kelvin`. Give them all values equal to the freezing point of water.
 
+```swift
+struct FreezingPoint {
+    let celsius = 0.0
+    let fahrenheit = 32.0
+    let kelvin = 237.2
+}
+```
 
 b. Make a struct called `Celsius` that has one property: `celsius`, and two methods `getFahrenheitTemp`, and `getKelvinTemp`. Make the values of `fahrenheit` and `kelvin` correct values, converted from the `celsius` property.
 
@@ -333,20 +340,61 @@ Create a struct called `RGBColor` that has 3 properties, `red`, `green`, `blue` 
 Given the below array of color dictionaries, create an array of `RGBColor`.
 
 ```swift
-let colorDictArray: [[String: Double]] = [["red": 1.0, "green": 0.0, "blue": 0.0],
+let colorDictArray: [[String: Double]] = [
+ ["red": 1.0, "green": 0.0, "blue": 0.0],
  ["red": 0.0, "green": 1.0, "blue": 0.0],
  ["red": 0.0, "green": 0.0, "blue": 1.0],
  ["red": 0.6, "green": 0.9, "blue": 0.0],
  ["red": 0.2, "green": 0.2, "blue": 0.5],
  ["red": 0.5, "green": 0.1, "blue": 0.9],]
 ```
-
+answer:
+```swift
+func dictToArrayColor(_ arrayOfDict:[[String: Double]]) -> [RGBColor] {
+    var rGBColorArray = [RGBColor]()
+    for dict in arrayOfDict {
+        for _ in dict {
+            let red = dict["red"] ?? -1
+            let green = dict["green"] ?? -1
+            let blue = dict["blue"] ?? -1
+            let rgbColor = RGBColor(red: red, green: green, blue: blue)
+            rGBColorArray.append(rgbColor)
+        }
+    }
+    return rGBColorArray
+}
+```
 
 ## Question 11
 
 a. Create a struct called `Movie` that has properties for `name` (`String`), `year` (`Int`), `genre` (`String`), `cast` (`[String]`), and `description` (`String`). Create an instance of your `Movie` class
+```swift
+struct Movie {
+    let name: String
+    let genre: String
+    let cast: [String]
+    let description: String
+}
 
+let joker = Movie(name: "Joker",
+genre: "Psychological Thriller",
+cast: ["Joaquin Phoenix", "Robert De Niro", "Zazie Beetz", "Frances Conroy"],
+description: "Forever alone in a crowd, failed comedian Arthur Fleck seeks connection as he walks the streets of Gotham City. Arthur wears two masks -- the one he paints for his day job as a clown, and the guise he projects in a futile attempt to feel like he's part of the world around him. Isolated, bullied and disregarded by society, Fleck begins a slow descent into madness as he transforms into the criminal mastermind known as the Joker.")
+```
 b. Create an instance method inside `Movie` called `blurb` that returns a formatted string describing the movie.
+
+```swift
+struct Movie {
+    let name: String
+    let genre: String
+    let cast: [String]
+    let description: String
+    
+    func blurb() -> String {
+        "\(name), a \(genre) movie, starring \(cast.joined(separator: ", ")): \(description)"
+    }
+}
+```
 
 Ex: "Borat came out in 2006. It was an odd film starring Sacha Baron Cohen as a man named Borat who was visiting America from Kazakhstan."
 
@@ -388,6 +436,18 @@ if let yearAsString = dieHardDict["year"] as? String {
  print(yearAsString)
 } else {
  print("this didn't work")
+}
+```
+
+answer:
+```swift
+func makeMovie(_ movieDict: [String: Any]) -> Movie? {
+    let name = movieDict["name"] as? String ?? ""
+    let genre = movieDict["genre"] as? String ?? ""
+    let cast = movieDict["cast"] as? [String] ?? [""]
+    let description = movieDict["description"] as? String ?? ""
+    let movie = Movie(name: name, genre: genre, cast: cast, description: description)
+    return movie
 }
 ```
 
@@ -464,4 +524,17 @@ var movies: [[String:Any]] = [
  "description": "Navy S.E.A.L. sniper Chris Kyle\"s pinpoint accuracy saves countless lives on the battlefield and turns him into a legend. Back home to his wife and kids after four tours of duty, however, Chris finds that it is the war he can\"t leave behind."
  ]
 ]
+```
+
+answer:
+
+```swift
+func arrayOfMovies(_ arrDict:[[String:Any]]) -> [Movie] {
+    var movieArray = [Movie]()
+    for dict in arrDict {
+        movieArray.append(makeMovie(dict)!)
+    }
+    return movieArray
+}
+
 ```
