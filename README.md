@@ -371,7 +371,18 @@ var green = Double()
 var blue = Double()
 }
 
-let RGBArray = [RGBColor(red: 1.0, green: 0.0, blue: 0.0), RGBColor(red: 0.0, green: 1.0, blue: 0.0), RGBColor(red: 0.0, green: 0.0, blue: 1.0), RGBColor(red: 0.6, green: 0.9, blue: 0.0), RGBColor(red: 0.2, green: 0.2, blue: 0.5), RGBColor(red: 0.5, green: 0.1, blue: 0.9)]
+func RGBarr(dictArr:[[String: Double]]) -> [RGBColor] {
+var color = RGBColor()
+var RGBArray = [RGBColor]()
+    for each in dictArr {
+        color.red = each["red"]!
+        color.green = each["green"]!
+        color.blue = each["blue"]!
+        RGBArray.append(color)
+        }
+    return RGBArray
+}
+
 ```
 
 ## Question 11
