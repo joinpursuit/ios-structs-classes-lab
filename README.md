@@ -230,6 +230,9 @@ class Dog {
     var breed = "unknown"
     var mood = "calm"
     var hungry = false
+    static var count = 0
+    
+    init() { Dog.count += 1 }
     
     func playFetch() {
         self.hungry = true
@@ -329,6 +332,30 @@ a. Make a struct called `FreezingPoint` that has three static properties: `celsi
 
 b. Make a struct called `Celsius` that has one property: `celsius`, and two methods `getFahrenheitTemp`, and `getKelvinTemp`. Make the values of `fahrenheit` and `kelvin` correct values, converted from the `celsius` property.
 
+Answer
+```swift
+struct FreezingPoint {
+    var celsius = 0.0
+    var fahrenheit = 32.0
+    var kelvin: Double = 273.15
+}
+
+struct Celsius {
+    var celsius = 0.0
+    
+    func getFahrenheitTemp() -> Double {
+        let fahrenheit = 1.8 * self.celsius + 32
+        
+        return fahrenheit
+    }
+    
+    func getKelvinTemp() -> Double {
+        let kelvin = self.celsius + 273
+        
+        return kelvin
+    }
+}
+```
 ```swift
 var tenDegreesCelsius = Celsius(celsius: 10.0)
 tenDegreesCelsius.celsius //returns 10.0
@@ -353,7 +380,28 @@ let colorDictArray: [[String: Double]] = [["red": 1.0, "green": 0.0, "blue": 0.0
  ["red": 0.2, "green": 0.2, "blue": 0.5],
  ["red": 0.5, "green": 0.1, "blue": 0.9],]
 ```
+Answer
+```swift
+struct RGBColor {
+    var red: Double
+    var green: Double
+    var blue: Double
+}
 
+func rgbColor(colors: [[String: Double]]) -> [RGBColor] {
+    var rGBColor = RGBColor(red: 0, green: 0, blue: 0)
+    var list = [RGBColor]()
+    for color in colors {
+        rGBColor.red = color["red"] ?? 0
+        rGBColor.green = color["red"] ?? 0
+        rGBColor.blue = color["red"] ?? 0
+        
+        list.append(rGBColor)
+    }
+    
+    return list
+}
+```
 
 ## Question 11
 
@@ -363,6 +411,23 @@ b. Create an instance method inside `Movie` called `blurb` that returns a format
 
 Ex: "Borat came out in 2006. It was an odd film starring Sacha Baron Cohen as a man named Borat who was visiting America from Kazakhstan."
 
+Answer
+```swift
+struct Movie {
+    var name: String
+    var year: Int
+    var genre: String
+    var cast: [String]
+    var description: String
+    
+    func bluerb() {
+    print("\(name) came out in \(year). \(description)")
+    }
+}
+
+let bluerb = Movie()
+
+```
 
 ## Question 12
 
@@ -401,6 +466,20 @@ if let yearAsString = dieHardDict["year"] as? String {
  print(yearAsString)
 } else {
  print("this didn't work")
+}
+```
+Answer
+```swift
+func makeMovie(movie: [String: Any]) -> Movie? {
+    var movieDefinition = Movie(name: "", year: 0, genre: "", cast: [], description: "")
+    
+    movieDefinition.name = movie["name"] as? String ?? ""
+    movieDefinition.year = movie["year"] as? Int ?? 0
+    movieDefinition.genre = movie["genre"] as? String ?? ""
+    movieDefinition.cast = movie["cast"] as? [String] ?? []
+    movieDefinition.description = movie["description"] as? String ?? ""
+    
+    return movieDefinition
 }
 ```
 
@@ -477,4 +556,11 @@ var movies: [[String:Any]] = [
  "description": "Navy S.E.A.L. sniper Chris Kyle\"s pinpoint accuracy saves countless lives on the battlefield and turns him into a legend. Back home to his wife and kids after four tours of duty, however, Chris finds that it is the war he can\"t leave behind."
  ]
 ]
+```
+Answer
+```swift
+var movieArr = [Movie()] 
+for dictionary in movies {
+    movieArr.append(makeMovie(movie: dictionary))
+}
 ```
