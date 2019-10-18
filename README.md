@@ -24,9 +24,20 @@ fred.name = "Brick"
 fred.weight = 999.2
 fred.homePlanet = "Mars"
 ```
+answer:
+
+the code will not run because class 'Giant' has no initializers.
 
 Fix the class definition for `Giant` in the space below so that it **does** work:
 
+answer:
+```swift
+class Giant {
+    var name = String()
+    var weight = Double()
+    var homePlanet: String = "Earth"
+}
+```
 
 ## Question 2
 
@@ -48,9 +59,13 @@ bilbo.name = "Jake"
 bilbo.height = 1.42
 bilbo.homePlanet = "Saturn"
 ```
+answer:
+it won't work because bilbo was declared as a constant.
 
 Change the declaration of `bilbo` so that the above three lines of code **do** work:
-
+```swift
+var bilbo = Alien(name: "Bilbo", height: 1.67, homePlanet: "Venus")
+```
 
 ## Question 3
 
@@ -65,6 +80,9 @@ jason.name = "Jason"
 
 What will the value of `edgar.name` be after those three lines of code are run? What will the value of `jason.name` be? Why?
 
+the value of  `edgar.name` will be Jason.  The value of `jason.name` will also be Jason.   THat is becasue Giant is a class, and classes are known as reference types; Meaning that `jason.name` and `edgar.name` refer to the same instance of the data type Giant().  So when one value changes, so does the other.
+
+
 
 ## Question 4
 
@@ -78,6 +96,7 @@ charlesFromJupiter.homePlanet = "Jupiter"
 
 What will the value of `charles.homePlanet` be after the above code run? What about the value of `charlesFromJupiter.homePlanet`? Why?
 
+The value of `charles.homePlanet` is going to be "Pluto".  The value of `charlesFromJupiter.homePlanet` is going to be "Jupiter".  This is because Alien is a struct.  When a variable or constant is assigned a struct, its instanced as a copy of a struct.  If a new variable were to be assigned the same variable that was instanced a new struct, it would become a copy of that variable, rather than being referenced.  So when the data changes in that variable, it doesnt affect the value of the new one.
 
 ## Question 5
 
@@ -100,6 +119,8 @@ struct BankAccount {
 
 Does this code work? Why or why not?
 
+This code doesn't work because 'self' is immutable.
+
 Fix the `BankAccount` struct so it does work.
 
 Given the code below (which should incorporate any fixes you made):
@@ -112,28 +133,98 @@ joeAccount.withdraw(50.0)
 
 What will the value of `joeAccount.balance` be after the above code runs? What about the value of `joeOtherAccount.balance`? Why?
 
+The value of `joeAccount.balance` will be `50.0`.  THe value of `joeOtherAccount.balance` will be `100.0`.  This is because joeAccount is a variable that takes the struct BankAccount.  As a struct, whenever a new variable is assigned from the var joeAccount; it will be assigned a copy of joeAccount.  So when the value of joeAccount changes after the fact; it does not affect the values of other variables that were assigned before this execution occurred. 
+
 
 ## Question 6
 
 a. Write a struct called `Person` that has 3 properties of type `String`: a first name, a last name and a middle name. Have the middle name be optional. Create 2 instances of a `Person`, one with a middle name and one without. Print one of their first names.
 
+```swift
+struct Person {
+    let firstName: String
+    let middleName: String?
+    let lastName: String
+    func fullName() -> String {
+        "\(firstName) \(middleName ?? "") \(lastName)"
+    }
+}
 
+let ahad = Person(firstName: "Ahad", middleName: nil, lastName: "Islam")
+let eddie = Person(firstName: "Edward", middleName: "O", lastName: "Neil")
+
+print(eddie.firstName)
+print(ahad.firstName)
+```
 b. Write a method in `Person` called `fullName` that will return a formatted string of an instance's full name. Call this method on both the instances you created in part a.
 
+```swift
+print(ahad.fullName())
+print(eddie.fullName())
 
+```
 ## Question 7
 
 a. Create a struct called `Book` that has properties `title`, `author` and `rating`, of type `String`, `String`, and `Double` respectively. Create some instances of `Book`.
 
+```swift
+struct Book {
+    let title: String
+    let author: String
+    let rating: Double
+}
+
+let hundredYearsOfSolitude = Book(title: "One Hundred Years of Solitude", author: "Gabriel Garcia Marquez", rating: 100.0)
+let flowersForAlgernon = Book(title: "Flowers for Algernon", author: "Daniel Keyes", rating: 10.0)
+let warAndPeace = Book(title: "War and Peace", author: "Leo Tolstory", rating: 5.0)
+```
 
 b. Add a method to `Book` called `isGood` that returns `true` if its rating is greater than or equal to 7
+
+```swift
+struct Book {
+    let title: String
+    let author: String
+    let rating: Double
+    func isGood() -> Bool {
+        if self.rating >= 7.0 { return true }
+        else { return false }
+    }
+}
+```
 
 
 ## Question 8
 
 ```swift
 class Dog {
-
+    static var count = 0
+    var name = "dog"
+    var breed = "unknown"
+    var mood = "calm"
+    var hungry = false
+    
+    init() { Dog.count += 1 }
+    func playFetch() {
+        self.hungry = true
+        self.mood = "playful"
+        print("Ruff")
+    }
+    func feed() {
+        if self.hungry {
+            hungry = false
+            print("Woof!")
+        } else {
+            print("The dog doesn't look hungry.")
+        }
+    }
+    func toString() -> String {
+        return """
+        Name: \(self.name)
+        Breed: \(self.breed)
+        Mood: \(self.mood)
+        """
+    }
 }
 ```
 
@@ -207,6 +298,13 @@ K = C + 273
 
 a. Make a struct called `FreezingPoint` that has three static properties: `celsius`, `fahrenheit`, and `kelvin`. Give them all values equal to the freezing point of water.
 
+```swift
+struct FreezingPoint {
+    let celsius = 0.0
+    let fahrenheit = 32.0
+    let kelvin = 237.2
+}
+```
 
 b. Make a struct called `Celsius` that has one property: `celsius`, and two methods `getFahrenheitTemp`, and `getKelvinTemp`. Make the values of `fahrenheit` and `kelvin` correct values, converted from the `celsius` property.
 
@@ -219,6 +317,21 @@ tenDegreesCelsius.getFahrenheitTemp() //returns 50.0
 
 c. Give the `Celsius` struct a method called `isBelowFreezing` that returns a `Bool` (true if the temperature is below freezing).
 
+```swift
+struct Celsius {
+    var celsius: Double
+    
+    func getFahrenheitTemp() -> Double {
+        return 1.8 * self.celsius + 32
+    }
+    func getKelvinTemp() -> Double {
+        return self.celsius + 273
+    }
+    func isBelowFreezing(freezingC: FreezingPoint) -> Bool {
+        self.celsius < freezingC.celsius ? true : false
+    }
+}
+```
 
 ## Question 10
 
@@ -227,20 +340,61 @@ Create a struct called `RGBColor` that has 3 properties, `red`, `green`, `blue` 
 Given the below array of color dictionaries, create an array of `RGBColor`.
 
 ```swift
-let colorDictArray: [[String: Double]] = [["red": 1.0, "green": 0.0, "blue": 0.0],
+let colorDictArray: [[String: Double]] = [
+ ["red": 1.0, "green": 0.0, "blue": 0.0],
  ["red": 0.0, "green": 1.0, "blue": 0.0],
  ["red": 0.0, "green": 0.0, "blue": 1.0],
  ["red": 0.6, "green": 0.9, "blue": 0.0],
  ["red": 0.2, "green": 0.2, "blue": 0.5],
  ["red": 0.5, "green": 0.1, "blue": 0.9],]
 ```
-
+answer:
+```swift
+func dictToArrayColor(_ arrayOfDict:[[String: Double]]) -> [RGBColor] {
+    var rGBColorArray = [RGBColor]()
+    for dict in arrayOfDict {
+        for _ in dict {
+            let red = dict["red"] ?? -1
+            let green = dict["green"] ?? -1
+            let blue = dict["blue"] ?? -1
+            let rgbColor = RGBColor(red: red, green: green, blue: blue)
+            rGBColorArray.append(rgbColor)
+        }
+    }
+    return rGBColorArray
+}
+```
 
 ## Question 11
 
 a. Create a struct called `Movie` that has properties for `name` (`String`), `year` (`Int`), `genre` (`String`), `cast` (`[String]`), and `description` (`String`). Create an instance of your `Movie` class
+```swift
+struct Movie {
+    let name: String
+    let genre: String
+    let cast: [String]
+    let description: String
+}
 
+let joker = Movie(name: "Joker",
+genre: "Psychological Thriller",
+cast: ["Joaquin Phoenix", "Robert De Niro", "Zazie Beetz", "Frances Conroy"],
+description: "Forever alone in a crowd, failed comedian Arthur Fleck seeks connection as he walks the streets of Gotham City. Arthur wears two masks -- the one he paints for his day job as a clown, and the guise he projects in a futile attempt to feel like he's part of the world around him. Isolated, bullied and disregarded by society, Fleck begins a slow descent into madness as he transforms into the criminal mastermind known as the Joker.")
+```
 b. Create an instance method inside `Movie` called `blurb` that returns a formatted string describing the movie.
+
+```swift
+struct Movie {
+    let name: String
+    let genre: String
+    let cast: [String]
+    let description: String
+    
+    func blurb() -> String {
+        "\(name), a \(genre) movie, starring \(cast.joined(separator: ", ")): \(description)"
+    }
+}
+```
 
 Ex: "Borat came out in 2006. It was an odd film starring Sacha Baron Cohen as a man named Borat who was visiting America from Kazakhstan."
 
@@ -282,6 +436,18 @@ if let yearAsString = dieHardDict["year"] as? String {
  print(yearAsString)
 } else {
  print("this didn't work")
+}
+```
+
+answer:
+```swift
+func makeMovie(_ movieDict: [String: Any]) -> Movie? {
+    let name = movieDict["name"] as? String ?? ""
+    let genre = movieDict["genre"] as? String ?? ""
+    let cast = movieDict["cast"] as? [String] ?? [""]
+    let description = movieDict["description"] as? String ?? ""
+    let movie = Movie(name: name, genre: genre, cast: cast, description: description)
+    return movie
 }
 ```
 
@@ -358,4 +524,17 @@ var movies: [[String:Any]] = [
  "description": "Navy S.E.A.L. sniper Chris Kyle\"s pinpoint accuracy saves countless lives on the battlefield and turns him into a legend. Back home to his wife and kids after four tours of duty, however, Chris finds that it is the war he can\"t leave behind."
  ]
 ]
+```
+
+answer:
+
+```swift
+func arrayOfMovies(_ arrDict:[[String:Any]]) -> [Movie] {
+    var movieArray = [Movie]()
+    for dict in arrDict {
+        movieArray.append(makeMovie(dict)!)
+    }
+    return movieArray
+}
+
 ```
