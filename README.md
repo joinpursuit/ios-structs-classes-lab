@@ -18,7 +18,7 @@ let fred = Giant()
 ```
 
 Will these three lines of code run? If not, why not?
-
+no homePlanet is a let instead of var
 ```swift
 fred.name = "Brick"
 fred.weight = 999.2
@@ -26,8 +26,13 @@ fred.homePlanet = "Mars"
 ```
 
 Fix the class definition for `Giant` in the space below so that it **does** work:
-
-
+```swift
+class Giant {
+ var name: String = "Fred"
+ var weight: Double = 340.0
+ var homePlanet: String = "Earth"
+}
+```
 ## Question 2
 
 Take a look at this struct that represents an alien:
@@ -48,9 +53,9 @@ bilbo.name = "Jake"
 bilbo.height = 1.42
 bilbo.homePlanet = "Saturn"
 ```
-
+no bilbo is declared as let
 Change the declaration of `bilbo` so that the above three lines of code **do** work:
-
+var bilbo = Alien(name: "Bilbo", height: 1.67, homePlanet: "Venus")
 
 ## Question 3
 
@@ -64,7 +69,7 @@ jason.name = "Jason"
 ```
 
 What will the value of `edgar.name` be after those three lines of code are run? What will the value of `jason.name` be? Why?
-
+lines above compute because variable name in the class Giant are variables and edgar is set as a Giant class and jason is also set as a Giant class
 
 ## Question 4
 
@@ -77,7 +82,7 @@ charlesFromJupiter.homePlanet = "Jupiter"
 ```
 
 What will the value of `charles.homePlanet` be after the above code run? What about the value of `charlesFromJupiter.homePlanet`? Why?
-
+charles.homePlanet will be Pluto and charlesFromJupiter.homePlanet will be Jupiter because charles is an alien type whos home planet is pluto and charlesfromjupiter is charles but his homeplanet is changed to jupiter
 
 ## Question 5
 
@@ -99,9 +104,22 @@ struct BankAccount {
 ```
 
 Does this code work? Why or why not?
-
+no because the funcs have to be mutating
 Fix the `BankAccount` struct so it does work.
+```swift
+struct BankAccount {
+ var owner: String
+ var balance: Double
 
+ mutating func deposit(_ amount: Double) {
+ balance += amount
+ }
+
+ mutating func withdraw(_ amount: Double) {
+ balance -= amount
+ }
+}
+```
 Given the code below (which should incorporate any fixes you made):
 
 ```swift
@@ -111,29 +129,101 @@ joeAccount.withdraw(50.0)
 ```
 
 What will the value of `joeAccount.balance` be after the above code runs? What about the value of `joeOtherAccount.balance`? Why?
-
+joeAccount.balance will be 50 and joeOtherAccount.balance will be 100 
+joeAccount withdrew 50 and joeOtherAccount was not touched. joeOtherAccount is a copy of joeAccount before the withdraw
 
 ## Question 6
 
 a. Write a struct called `Person` that has 3 properties of type `String`: a first name, a last name and a middle name. Have the middle name be optional. Create 2 instances of a `Person`, one with a middle name and one without. Print one of their first names.
-
-
+```swift
+struct Person {
+var firstName: String
+var lastName: String
+var middleName: String?
+}
+var joe = Person(firstName: "Joe", lastName: "wabba")
+var teddy = Person(firstName: "teddy", lastName: "poop", middleName: "L")
+```
 b. Write a method in `Person` called `fullName` that will return a formatted string of an instance's full name. Call this method on both the instances you created in part a.
+```swift
+struct Person {
+var firstName: String
+var lastName: String
+var middleName: String?
+func fullName() -> String {
+return "\(firstName)" + " " + ("\(middleName ?? "") ") + "\(lastName)"
+}
+}
 
+joe.fullName()
+teddy.fullName()
+```
 
 ## Question 7
 
 a. Create a struct called `Book` that has properties `title`, `author` and `rating`, of type `String`, `String`, and `Double` respectively. Create some instances of `Book`.
 
+```swift
+struct Book {
+var title: String
+var author: String
+var rating: Double
+}
+
+let book1 = Book(title: "book1", author: "mystery", rating: 6.0)
+let book2 = Book(title: "book2", author: "mystery", rating: 7.5)
+```
 
 b. Add a method to `Book` called `isGood` that returns `true` if its rating is greater than or equal to 7
+
+```swift
+struct Book {
+var title: String
+var author: String
+var rating: Double
+    func isGood() -> Bool {
+        if self.rating >= 7 {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+```
 
 
 ## Question 8
 
 ```swift
 class Dog {
-
+var name = String()
+var breed = String()
+var mood = String()
+var hungry = Bool()
+    func playFetch() {
+self.hungry = true
+self.mood = "playful"
+print("Ruff!")
+}
+   
+    func feed() {
+        if self.hungry == true {
+            self.hungry = false
+            print("Woof!")
+        } else {
+            print("The dog doesn't look hungry")
+        }
+    }
+    
+    func toString() -> String {
+        return "Name: \(self.name) Breed: \(self.breed) Mood: \(self.mood)"
+    }
+    
+  static var count = 0
+    init() {
+        Dog.count += 1
+    }
+ 
 }
 ```
 
@@ -206,7 +296,13 @@ F = 1.8 * C + 32
 K = C + 273
 
 a. Make a struct called `FreezingPoint` that has three static properties: `celsius`, `fahrenheit`, and `kelvin`. Give them all values equal to the freezing point of water.
-
+```swift
+struct FreezingPoint {
+static var celsius = 0.0
+static var fahrenheit = 32.0
+static var kelvin = 273.0
+}
+```
 
 b. Make a struct called `Celsius` that has one property: `celsius`, and two methods `getFahrenheitTemp`, and `getKelvinTemp`. Make the values of `fahrenheit` and `kelvin` correct values, converted from the `celsius` property.
 
@@ -216,10 +312,44 @@ tenDegreesCelsius.celsius //returns 10.0
 tenDegreesCelsius.getKelvinTemp() //returns 283.0
 tenDegreesCelsius.getFahrenheitTemp() //returns 50.0
 ```
-
+```swift
+struct Celsius {
+var celsius = Double()
+func getFahrenheitTemp() -> Double {
+return 1.8 * self.celsius + 32
+}
+func getKelvinTemp() -> Double {
+return self.celsius + 273
+}
+}
+```
 c. Give the `Celsius` struct a method called `isBelowFreezing` that returns a `Bool` (true if the temperature is below freezing).
 
+```swift
+struct FreezingPoint {
+    static var celsius = 0.0
+    static var fahrenheit = 32.0
+    static var kelvin = 273.0
+}
 
+struct Celsius {
+var celsius = Double()
+func getFahrenheitTemp() -> Double {
+return 1.8 * self.celsius + 32
+}
+func getKelvinTemp() -> Double {
+return self.celsius + 273
+}
+func isBelowFreezing() -> Bool {
+    if self.celsius < FreezingPoint.celsius {
+        return true
+    } else {
+        return false
+    }
+}
+}
+
+```
 ## Question 10
 
 Create a struct called `RGBColor` that has 3 properties, `red`, `green`, `blue` that are all of type `Double`.
@@ -234,7 +364,15 @@ let colorDictArray: [[String: Double]] = [["red": 1.0, "green": 0.0, "blue": 0.0
  ["red": 0.2, "green": 0.2, "blue": 0.5],
  ["red": 0.5, "green": 0.1, "blue": 0.9],]
 ```
+```swift
+struct RGBColor {
+var red = Double()
+var green = Double()
+var blue = Double()
+}
 
+let RGBArray = [RGBColor(red: 1.0, green: 0.0, blue: 0.0), RGBColor(red: 0.0, green: 1.0, blue: 0.0), RGBColor(red: 0.0, green: 0.0, blue: 1.0), RGBColor(red: 0.6, green: 0.9, blue: 0.0), RGBColor(red: 0.2, green: 0.2, blue: 0.5), RGBColor(red: 0.5, green: 0.1, blue: 0.9)]
+```
 
 ## Question 11
 
@@ -243,7 +381,21 @@ a. Create a struct called `Movie` that has properties for `name` (`String`), `ye
 b. Create an instance method inside `Movie` called `blurb` that returns a formatted string describing the movie.
 
 Ex: "Borat came out in 2006. It was an odd film starring Sacha Baron Cohen as a man named Borat who was visiting America from Kazakhstan."
+```swift
+struct Movie {
+var name = String()
+var year = Int()
+var genre = String()
+var cast = [String]()
+var description = String()
+func blurb() -> String {
+    return "\(name) came out in \(year) starring \(cast). \(description)"
+}
+}
+var Swift = Movie()
 
+
+```
 
 ## Question 12
 
@@ -256,7 +408,28 @@ let dieHardDict: [String: Any] = ["name": "Die Hard",
  "cast": ["Bruce Willis", "Alan Rickman"],
  "description": "John Mclain saves the day!"]
 ```
+```swift
+func makeMovie(dict: [String: Any]) -> Movie? {
+var movie = Movie()
+    if let name = dict["name"] as? String {
+        movie.name = name
+    }
+    if let year = dict["year"] as? Int {
+        movie.year = year
+    }
+    if let genre = dict["genre"] as? String {
+        movie.genre = genre
+    }
+    if let cast = dict["cast"] as? [String] {
+        movie.cast = cast
+    }
+    if let description = dict["description"] as? String {
+        movie.description = description
+    }
+    return movie
+}
 
+```
 Hint: To use a value type `Any`, you will need to cast it to its expected type.
 
 Below, `nameAsAny` is of type `Any` because thats the type of the value in the dictionary:
@@ -358,4 +531,10 @@ var movies: [[String:Any]] = [
  "description": "Navy S.E.A.L. sniper Chris Kyle\"s pinpoint accuracy saves countless lives on the battlefield and turns him into a legend. Back home to his wife and kids after four tours of duty, however, Chris finds that it is the war he can\"t leave behind."
  ]
 ]
+```
+```swift
+var library = [Movie]()
+for each in movies {
+    library.append(makeMovie(dict: each)!)
+}
 ```
