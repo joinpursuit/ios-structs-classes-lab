@@ -16,6 +16,7 @@ class Giant {
 
 let fred = Giant()
 ```
+Answer
 
 Will these three lines of code run? If not, why not?
 
