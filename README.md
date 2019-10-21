@@ -19,6 +19,7 @@ let fred = Giant()
 
 Will these three lines of code run? If not, why not?
 
+Answer: No, homePlanet is assigned with a let and is immutable.
 ```swift
 fred.name = "Brick"
 fred.weight = 999.2
@@ -26,6 +27,16 @@ fred.homePlanet = "Mars"
 ```
 
 Fix the class definition for `Giant` in the space below so that it **does** work:
+```swift
+class Giant {
+ var name: String = "Fred"
+ var weight: Double = 340.0
+ var homePlanet: String = "Earth"
+}
+
+let fred = Giant()
+
+```
 
 
 ## Question 2
@@ -43,6 +54,8 @@ let bilbo = Alien(name: "Bilbo", height: 1.67, homePlanet: "Venus")
 
 Will these three lines of code run? If so, why not?
 
+Answer: No, bilbo is assigned as a let and is immutable.
+
 ```swift
 bilbo.name = "Jake"
 bilbo.height = 1.42
@@ -50,6 +63,15 @@ bilbo.homePlanet = "Saturn"
 ```
 
 Change the declaration of `bilbo` so that the above three lines of code **do** work:
+
+```swift
+struct Alien {
+ var name: String
+ var height: Double
+ var homePlanet: String
+}
+var bilbo = Alien(name: "Bilbo", height: 1.67, homePlanet: "Venus")
+```
 
 
 ## Question 3
@@ -65,6 +87,8 @@ jason.name = "Jason"
 
 What will the value of `edgar.name` be after those three lines of code are run? What will the value of `jason.name` be? Why?
 
+Answer: The value of both will be Jason.  Because they are reference types instead of value types, when a subclass is changed, the other subclasses it's derived from also experience a change in values.
+
 
 ## Question 4
 
@@ -77,6 +101,10 @@ charlesFromJupiter.homePlanet = "Jupiter"
 ```
 
 What will the value of `charles.homePlanet` be after the above code run? What about the value of `charlesFromJupiter.homePlanet`? Why?
+
+Answer: Because it is a value type, charles.homePlanet will remain at the same value of "Pluto", while charlesFromJupiter.homePlanet is produced as a copy, and it's value can and will be changed to "Jupiter".
+
+
 
 
 ## Question 5
