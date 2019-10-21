@@ -128,7 +128,24 @@ struct BankAccount {
 
 Does this code work? Why or why not?
 
+Answer: It does not. Structs are immutable, so balance can't be changed without a mutating func.
+
 Fix the `BankAccount` struct so it does work.
+
+```swift
+struct BankAccount {
+ var owner: String
+ var balance: Double
+
+ mutatings func deposit(_ amount: Double) {
+ balance += amount
+ }
+
+ mutating func withdraw(_ amount: Double) {
+ balance -= amount
+ }
+}
+```
 
 Given the code below (which should incorporate any fixes you made):
 
@@ -139,6 +156,8 @@ joeAccount.withdraw(50.0)
 ```
 
 What will the value of `joeAccount.balance` be after the above code runs? What about the value of `joeOtherAccount.balance`? Why?
+
+Answer: joeAccount.balance will return with a value of 50, after 50 is removed through the withdraw function. joeOtherAccount.balance will retain its value of 100, since we're working with value types.
 
 
 ## Question 6
