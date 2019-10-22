@@ -19,6 +19,7 @@ let fred = Giant()
 
 Will these three lines of code run? If not, why not?
 
+Answer: No, homePlanet is assigned with a let and is immutable.
 ```swift
 fred.name = "Brick"
 fred.weight = 999.2
@@ -26,6 +27,16 @@ fred.homePlanet = "Mars"
 ```
 
 Fix the class definition for `Giant` in the space below so that it **does** work:
+```swift
+class Giant {
+ var name: String = "Fred"
+ var weight: Double = 340.0
+ var homePlanet: String = "Earth"
+}
+
+let fred = Giant()
+
+```
 
 
 ## Question 2
@@ -43,6 +54,8 @@ let bilbo = Alien(name: "Bilbo", height: 1.67, homePlanet: "Venus")
 
 Will these three lines of code run? If so, why not?
 
+Answer: No, bilbo is assigned as a let and is immutable.
+
 ```swift
 bilbo.name = "Jake"
 bilbo.height = 1.42
@@ -50,6 +63,15 @@ bilbo.homePlanet = "Saturn"
 ```
 
 Change the declaration of `bilbo` so that the above three lines of code **do** work:
+
+```swift
+struct Alien {
+ var name: String
+ var height: Double
+ var homePlanet: String
+}
+var bilbo = Alien(name: "Bilbo", height: 1.67, homePlanet: "Venus")
+```
 
 
 ## Question 3
@@ -65,6 +87,8 @@ jason.name = "Jason"
 
 What will the value of `edgar.name` be after those three lines of code are run? What will the value of `jason.name` be? Why?
 
+Answer: The value of both will be Jason.  Because they are reference types instead of value types, when a subclass is changed, the other subclasses it's derived from also experience a change in values.
+
 
 ## Question 4
 
@@ -77,6 +101,10 @@ charlesFromJupiter.homePlanet = "Jupiter"
 ```
 
 What will the value of `charles.homePlanet` be after the above code run? What about the value of `charlesFromJupiter.homePlanet`? Why?
+
+Answer: Because it is a value type, charles.homePlanet will remain at the same value of "Pluto", while charlesFromJupiter.homePlanet is produced as a copy, and it's value can and will be changed to "Jupiter".
+
+
 
 
 ## Question 5
@@ -100,7 +128,24 @@ struct BankAccount {
 
 Does this code work? Why or why not?
 
+Answer: It does not. Structs are immutable, so balance can't be changed without a mutating func.
+
 Fix the `BankAccount` struct so it does work.
+
+```swift
+struct BankAccount {
+ var owner: String
+ var balance: Double
+
+ mutatings func deposit(_ amount: Double) {
+ balance += amount
+ }
+
+ mutating func withdraw(_ amount: Double) {
+ balance -= amount
+ }
+}
+```
 
 Given the code below (which should incorporate any fixes you made):
 
@@ -112,11 +157,24 @@ joeAccount.withdraw(50.0)
 
 What will the value of `joeAccount.balance` be after the above code runs? What about the value of `joeOtherAccount.balance`? Why?
 
+Answer: joeAccount.balance will return with a value of 50, after 50 is removed through the withdraw function. joeOtherAccount.balance will retain its value of 100, since we're working with value types.
+
 
 ## Question 6
 
 a. Write a struct called `Person` that has 3 properties of type `String`: a first name, a last name and a middle name. Have the middle name be optional. Create 2 instances of a `Person`, one with a middle name and one without. Print one of their first names.
 
+```swift
+struct Person {
+    var firstName: String
+    var middleName: String?
+    var lastName: String
+}
+var matthew = Person(firstName: "Matthew", middleName: "Marc", lastName: "Ramos")
+var bob = Person(firstName: "Bob", middleName: nil, lastName: "Bobington")
+
+print(bob.firstName)
+```
 
 b. Write a method in `Person` called `fullName` that will return a formatted string of an instance's full name. Call this method on both the instances you created in part a.
 
@@ -128,7 +186,22 @@ a. Create a struct called `Book` that has properties `title`, `author` and `rati
 
 b. Add a method to `Book` called `isGood` that returns `true` if its rating is greater than or equal to 7
 
+```swift
+struct Book {
+    var title: String
+    var author: String
+    var rating: Double
+    
+    func isGood() -> Bool {
+        if rating >= 7 {
+            return true
+        } else {
+            return false
+        }
+    }
+}
 
+```
 ## Question 8
 
 ```swift
@@ -147,6 +220,28 @@ dog1.name //returns "dog"
 dog1.breed //returns "unknown"
 dog1.mood //returns "calm"
 dog1.hungry //returns false
+```
+
+Answer:
+```swift
+class Dog {
+    var name: String
+    var breed: String
+    var mood: String
+    var hungry: Bool
+    
+    init(name: String,
+         breed: String,
+         mood: String,
+         hungry: Bool) {
+        self.name = name
+        self.breed = breed
+        self.mood = mood
+        self.hungry = hungry
+    }
+}
+var dog1 = Dog(name: "dog", breed: "unknown", mood: "calm", hungry: false)
+
 ```
 
 b. Add an instance method called `playFetch()`. It should set the dog's `hungry` property to `true`, set its mood property to `playful`, and print "Ruff!"
