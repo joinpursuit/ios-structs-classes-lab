@@ -27,6 +27,15 @@ fred.homePlanet = "Mars"
 
 Fix the class definition for `Giant` in the space below so that it **does** work:
 
+//  Answer:
+No, creates class with default values for instance properties, then creates instance of class Giant called fred, but  changes the homeplanet string that is immutable.
+
+class Giant {
+ var name: String = "Fred"
+ var weight: Double = 340.0
+ var homePlanet: String = "Earth"
+}
+
 
 ## Question 2
 
@@ -51,6 +60,9 @@ bilbo.homePlanet = "Saturn"
 
 Change the declaration of `bilbo` so that the above three lines of code **do** work:
 
+//  Answer:
+No, declared instance bilbo as constant when using memberwise initializer.
+var bilbo = Alien(name: "Bilbo", height: 1.67, homePlanet: "Venus")
 
 ## Question 3
 
@@ -65,6 +77,7 @@ jason.name = "Jason"
 
 What will the value of `edgar.name` be after those three lines of code are run? What will the value of `jason.name` be? Why?
 
+//  Answer: The value of edgar.name will be "Jason" and jason.name will also be "Jason". Due to classes being a                referrence type object, references back instance based on and changes value.
 
 ## Question 4
 
@@ -78,6 +91,8 @@ charlesFromJupiter.homePlanet = "Jupiter"
 
 What will the value of `charles.homePlanet` be after the above code run? What about the value of `charlesFromJupiter.homePlanet`? Why?
 
+//  Answer: 
+value is Jupiter, structs are a value type object.
 
 ## Question 5
 
@@ -100,7 +115,24 @@ struct BankAccount {
 
 Does this code work? Why or why not?
 
+//  Answer:
+Trying to change balance value, but has to add mutating keyword to change instance property.
+
 Fix the `BankAccount` struct so it does work.
+
+//  Answer:
+struct BankAccount {
+ var owner: String
+ var balance: Double
+
+ mutating func deposit(_ amount: Double) {
+ balance += amount
+ }
+
+ mutating func withdraw(_ amount: Double) {
+ balance -= amount
+ }
+}
 
 Given the code below (which should incorporate any fixes you made):
 
@@ -112,14 +144,43 @@ joeAccount.withdraw(50.0)
 
 What will the value of `joeAccount.balance` be after the above code runs? What about the value of `joeOtherAccount.balance`? Why?
 
+//  Answer:
+joeAccount.balance = 100
+joeOtherAccount.balance = 50
+Structures are value type, so each one get's their own copy to modify
 
 ## Question 6
 
 a. Write a struct called `Person` that has 3 properties of type `String`: a first name, a last name and a middle name. Have the middle name be optional. Create 2 instances of a `Person`, one with a middle name and one without. Print one of their first names.
 
+//  Answer:
+struct Person   {
+var firstName: String
+var middleName: String?
+var lastName: String
+}
+
+let juan = Person(firstName: "Juan", middleName: "Jose", lastName: "Ceballos")
+let john = Person(firstName: "John", lastName: "Smith")
 
 b. Write a method in `Person` called `fullName` that will return a formatted string of an instance's full name. Call this method on both the instances you created in part a.
 
+//  Answer:
+struct Person   {
+    var firstName: String
+    var middleName: String?
+    var lastName: String
+    
+    func getFullName() -> String {
+        let fullName = "\(firstName) \(middleName ?? "") \(lastName)"
+        return fullName
+    }
+}
+
+let juan = Person(firstName: "Juan", middleName: "Jose", lastName: "Ceballos")
+let john = Person(firstName: "John", lastName: "Smith")
+
+print(juan.getFullName())
 
 ## Question 7
 
