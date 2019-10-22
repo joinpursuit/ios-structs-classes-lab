@@ -164,6 +164,17 @@ Answer: joeAccount.balance will return with a value of 50, after 50 is removed t
 
 a. Write a struct called `Person` that has 3 properties of type `String`: a first name, a last name and a middle name. Have the middle name be optional. Create 2 instances of a `Person`, one with a middle name and one without. Print one of their first names.
 
+```swift
+struct Person {
+    var firstName: String
+    var middleName: String?
+    var lastName: String
+}
+var matthew = Person(firstName: "Matthew", middleName: "Marc", lastName: "Ramos")
+var bob = Person(firstName: "Bob", middleName: nil, lastName: "Bobington")
+
+print(bob.firstName)
+```
 
 b. Write a method in `Person` called `fullName` that will return a formatted string of an instance's full name. Call this method on both the instances you created in part a.
 
@@ -175,7 +186,22 @@ a. Create a struct called `Book` that has properties `title`, `author` and `rati
 
 b. Add a method to `Book` called `isGood` that returns `true` if its rating is greater than or equal to 7
 
+```swift
+struct Book {
+    var title: String
+    var author: String
+    var rating: Double
+    
+    func isGood() -> Bool {
+        if rating >= 7 {
+            return true
+        } else {
+            return false
+        }
+    }
+}
 
+```
 ## Question 8
 
 ```swift
@@ -194,6 +220,28 @@ dog1.name //returns "dog"
 dog1.breed //returns "unknown"
 dog1.mood //returns "calm"
 dog1.hungry //returns false
+```
+
+Answer:
+```swift
+class Dog {
+    var name: String
+    var breed: String
+    var mood: String
+    var hungry: Bool
+    
+    init(name: String,
+         breed: String,
+         mood: String,
+         hungry: Bool) {
+        self.name = name
+        self.breed = breed
+        self.mood = mood
+        self.hungry = hungry
+    }
+}
+var dog1 = Dog(name: "dog", breed: "unknown", mood: "calm", hungry: false)
+
 ```
 
 b. Add an instance method called `playFetch()`. It should set the dog's `hungry` property to `true`, set its mood property to `playful`, and print "Ruff!"
