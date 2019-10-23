@@ -77,7 +77,8 @@ jason.name = "Jason"
 
 What will the value of `edgar.name` be after those three lines of code are run? What will the value of `jason.name` be? Why?
 
-//  Answer: The value of edgar.name will be "Jason" and jason.name will also be "Jason". Due to classes being a                referrence type object, references back instance based on and changes value.
+//  Answers: 
+The value of edgar.name will be "Jason" and jason.name will also be "Jason". Due to classes being a                referrence type object, references back instance based on and changes value.
 
 ## Question 4
 
@@ -91,7 +92,7 @@ charlesFromJupiter.homePlanet = "Jupiter"
 
 What will the value of `charles.homePlanet` be after the above code run? What about the value of `charlesFromJupiter.homePlanet`? Why?
 
-//  Answer: 
+//  Answers: 
 value is Jupiter, structs are a value type object.
 
 ## Question 5
@@ -186,6 +187,26 @@ print(juan.getFullName())
 
 a. Create a struct called `Book` that has properties `title`, `author` and `rating`, of type `String`, `String`, and `Double` respectively. Create some instances of `Book`.
 
+//  Answers:
+struct Book {
+    var title: String
+    var author: String
+    var rating: Double
+    
+    func isGood(rating : Double) -> Bool   {
+        var isGood = Bool()
+        if rating > 7.0 {
+            isGood = true
+        }
+        return isGood
+    }
+}
+
+let endersGame = Book(title: "Ender's Game", author: "Orson Scott Card", rating: 8.0)
+let lordOfTheFlies = Book(title: "Lord of The Flies", author: "William Golding", rating: 7.0)
+
+print(endersGame.isGood(rating: endersGame.rating))
+
 
 b. Add a method to `Book` called `isGood` that returns `true` if its rating is greater than or equal to 7
 
@@ -194,7 +215,41 @@ b. Add a method to `Book` called `isGood` that returns `true` if its rating is g
 
 ```swift
 class Dog {
-
+    var name = "dog"
+    var breed = "unknown"
+    var mood = "calm"
+    var hungry = false
+    
+    static var count: Int = 0
+    init()  {
+        Dog.count += 1
+    }
+    
+    func playFetch()    {
+        hungry = true
+        mood = "playful"
+        print("Ruff!")
+    }
+    
+    func feed() {
+        if hungry == true  {
+            hungry = false
+            print("Woof!")
+        }
+        else    {
+            print("The dog doesn't look hungry")
+        }
+    }
+    
+    func toString() -> String {
+        let description =
+        """
+        Name: \(name)
+        Breed: \(breed)
+        Mood: \(mood)
+        """
+        return description
+    }
 }
 ```
 
