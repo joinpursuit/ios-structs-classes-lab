@@ -350,6 +350,18 @@ let colorDictArray: [[String: Double]] = [["red": 1.0, "green": 0.0, "blue": 0.0
  ["red": 0.2, "green": 0.2, "blue": 0.5],
  ["red": 0.5, "green": 0.1, "blue": 0.9],]
 ```
+//  Answers:
+struct RGBColor {
+var red: Double
+var green: Double
+var blue: Double
+}
+
+func arrayColorMaker()    {
+
+}
+
+let rbgColorArr: [RGBColor]
 
 
 ## Question 11
@@ -360,7 +372,68 @@ b. Create an instance method inside `Movie` called `blurb` that returns a format
 
 Ex: "Borat came out in 2006. It was an odd film starring Sacha Baron Cohen as a man named Borat who was visiting America from Kazakhstan."
 
+//  Answers: ** 11 & 12 **
+struct Movie    {
+    var name: String
+    var year: Int
+    var genre: String
+    var cast: [String]
+    var description: String
+    
+    func blurb() -> String {
+        let movieBlurb = """
+        \(name) is a \(genre), released in \(year).
+        Cast Includes: \(cast)
+        """
+        return movieBlurb
+    }
+    
+    init(name: String, year: Int, genre: String, cast: [String], description: String)    {
+        self.name = name
+        self.year = year
+        self.genre = genre
+        self.cast = cast
+        self.description = description
+    }
+    init?(dict: [String: Any]) {
+        guard let name = dict["name"] as? String,
+            let year = dict["year"] as? Int,
+            let genre = dict["genre"] as? String,
+            let cast = dict["cast"] as? [String],
+            let description = dict["description"] as? String
+            else {
+            return nil
+        }
+        self.init(
+            name: name,
+            year: year,
+            genre: genre,
+            cast: cast,
+            description: description)
+    }
+    
+    
+}
 
+let pulpFictionCast = ["Samuel L. Jackson", "Uma Thruman", "Quentin Tarentino", "John Travolta", "Bruce Willis", "Amanda Plummer", "Tim Roth"]
+
+
+let pulpFictionMovie = Movie(name: "Pulp Fiction", year: 1994, genre: "Crime/Drama", cast: pulpFictionCast, description: "")
+let movieBlurb = pulpFictionMovie.blurb()
+
+func makeMovie(dict: [String: Any]) -> Movie?
+{
+    let newMovie = Movie(dict: dict)
+    return newMovie
+}
+
+let dieHardDict: [String: Any] = ["name": "Die Hard",
+"year" : 1987,
+"genre": "action",
+"cast": ["Bruce Willis", "Alan Rickman"],
+"description": "John Mclain saves the day!"]
+let dieHardMovie = makeMovie(dict: dieHardDict)
+print(dieHardMovie ?? Movie(name: "", year: 0, genre: "", cast: [], description: ""))
 ## Question 12
 
 Create a function outside of your `Movie` struct called `makeMovie` that takes in a dictionary of type `[String: Any]`, like `dieHardDict` below, and returns an `optional Movie`. Use `dieHardDict` to create an instance of a `Movie`.
@@ -475,3 +548,14 @@ var movies: [[String:Any]] = [
  ]
 ]
 ```
+//  Answers:
+var movieArray = [Movie]()
+var movieToAdd: Movie?
+
+for movieDict in movies {
+    movieToAdd = makeMovie(dict: movieDict)
+    movieArray.append(movieToAdd ?? Movie(name: "", year: 0, genre: "", cast: [], description: ""))
+}
+
+print(movieArray)
+
