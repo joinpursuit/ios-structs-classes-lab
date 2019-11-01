@@ -335,6 +335,43 @@ tenDegreesCelsius.getFahrenheitTemp() //returns 50.0
 
 c. Give the `Celsius` struct a method called `isBelowFreezing` that returns a `Bool` (true if the temperature is below freezing).
 
+// Answers:
+struct FreezingPoint    {
+    static var celcius = 0.0
+    static var fahrenheit = 32.0
+    static var kelvin = 273.0
+}
+
+struct Celsius  {
+    var celsius = 0.0
+    
+    func getFahrenheitTemp() -> Double    {
+        let convertedFahrenheit = 1.8 * (celsius) + 32
+        return convertedFahrenheit
+    }
+    
+    func getKelvinTemp() -> Double   {
+        let convertedKelvin = celsius + 273
+        return convertedKelvin
+    }
+    
+    func isBelowFreezing() -> Bool {
+        var isBelowFreezing = Bool()
+        let freezingPoint = FreezingPoint.celcius
+        if celsius < freezingPoint  {
+            isBelowFreezing = true
+        }
+        else    {
+            isBelowFreezing = false
+        }
+        return isBelowFreezing
+    }
+}
+
+var tenDegreesCelsius = Celsius(celsius: 10.0)
+tenDegreesCelsius.celsius //returns 10.0
+tenDegreesCelsius.getKelvinTemp() //returns 283.0
+tenDegreesCelsius.getFahrenheitTemp() //returns 50.0
 
 ## Question 10
 
