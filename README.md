@@ -492,7 +492,52 @@ let colorDictArray: [[String: Double]] = [["red": 1.0, "green": 0.0, "blue": 0.0
 
 a. Create a struct called `Movie` that has properties for `name` (`String`), `year` (`Int`), `genre` (`String`), `cast` (`[String]`), and `description` (`String`). Create an instance of your `Movie` class
 
+```swift
+struct Movie {
+    var name:String
+    var year:Int
+    var genre:String
+    var cast:[String]
+    var description: String
+    
+    init(name: String, year: Int, genre: String, cast: [String], description: String) {
+        self.name = name
+        self.year = year
+        self.genre = genre
+        self.cast = cast
+        self.description = description
+    }
+}
+
+let batman = Movie(name: "Batman", year: 2008, genre: "action", cast: ["Bob", "Sob", "Cob"], description: "ADFAFAFA")
+```
 b. Create an instance method inside `Movie` called `blurb` that returns a formatted string describing the movie.
+
+```swift
+struct Movie {
+    var name:String
+    var year:Int
+    var genre:String
+    var cast:[String]
+    var description: String
+    
+    init(name: String, year: Int, genre: String, cast: [String], description: String) {
+        self.name = name
+        self.year = year
+        self.genre = genre
+        self.cast = cast
+        self.description = description
+    }
+    
+    func info()->String {
+        return "\(name) came out in \(year). It was an \(genre) film starring \(cast.description)"
+    }
+}
+
+let blurb = Movie(name: "Batman", year: 2008, genre: "action", cast: ["Bob", "Sob", "Cob"], description: "ADFAFAFA")
+blurb.info()
+
+```
 
 Ex: "Borat came out in 2006. It was an odd film starring Sacha Baron Cohen as a man named Borat who was visiting America from Kazakhstan."
 
@@ -507,6 +552,40 @@ let dieHardDict: [String: Any] = ["name": "Die Hard",
  "genre": "action",
  "cast": ["Bruce Willis", "Alan Rickman"],
  "description": "John Mclain saves the day!"]
+```
+
+```swift
+struct Movie {
+    var name:String
+    var year:Int
+    var genre:String
+    var cast:[String]
+    var description: String
+    
+    init(name: String, year: Int, genre: String, cast: [String], description: String) {
+        self.name = name
+        self.year = year
+        self.genre = genre
+        self.cast = cast
+        self.description = description
+    }
+    
+    func info()->String {
+        return "\(name) came out in \(year). It was an \(genre) film starring \(cast.description)"
+    }
+    func makeMovie(movie: [String: Any]) -> Movie? {
+        var newMovie = Movie(name: "", year: 0, genre: "", cast: [""], description: "")
+        newMovie.name = movie["name"] as? String ?? ""
+        newMovie.year = movie["year"] as? Int ?? 0
+        newMovie.genre = movie["genre"] as? String ?? ""
+        newMovie.cast = movie["cast"] as? [String] ?? [""]
+        newMovie.description = movie["description"] as? String ?? ""
+
+        return newMovie
+    }
+}
+
+makeMovie(movie: dieHardDict)
 ```
 
 Hint: To use a value type `Any`, you will need to cast it to its expected type.
@@ -610,4 +689,11 @@ var movies: [[String:Any]] = [
  "description": "Navy S.E.A.L. sniper Chris Kyle\"s pinpoint accuracy saves countless lives on the battlefield and turns him into a legend. Back home to his wife and kids after four tours of duty, however, Chris finds that it is the war he can\"t leave behind."
  ]
 ]
+```
+```swift
+    var movieArr = [Movie()]
+
+    for movieData in movies {
+    movieArr.append(makeMovie(movie: movieData))
+    }
 ```
